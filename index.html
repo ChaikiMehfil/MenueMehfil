@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chai Ki Mehfil - Menu</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff8e1;
+      color: #333;
+    }
+
+    header {
+      background: #ffcc80;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      color: #6d4c41;
+    }
+
+    nav ul {
+      display: flex;
+      overflow-x: auto;
+      list-style: none;
+      margin: 0;
+      padding: 10px;
+      background: #ffe0b2;
+      white-space: nowrap;
+    }
+
+    nav ul li {
+      margin-right: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #4e342e;
+    }
+
+    nav ul li:hover {
+      text-decoration: underline;
+    }
+
+    section#menuContainer {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .menu-item {
+      position: relative;
+      height: 200px;
+      border-radius: 10px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: scale(1.02);
+    }
+
+    .menu-overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4); /* semi-transparent */
+      color: white;
+      padding: 10px;
+      box-sizing: border-box;
+      font-size: 16px;
+      text-align: center;
+      backdrop-filter: blur(3px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    footer {
+      background: #ffe0b2;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #5d4037;
+    }
+
+    @media (max-width: 600px) {
+      .menu-item {
+        height: 180px;
+      }
+
+      .menu-overlay {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>☕ Chai Ki Mehfil</h1>
+    <p>Good vibes start with great chai!</p>
+    <p>follow Us on Insta</p> <a href="https://www.instagram.com/_chai_ki_mehfil_/reels/">Click me to Follow</a>
+  </header>
+
+  <nav>
+    <ul>
+      <li onclick="showCategory('BestSeller')">Loaded Special</li>
+      <li onclick="showCategory('quickBites')">Quick Bites</li>
+      <li onclick="showCategory('sandwich')">Sandwich</li>
+      <li onclick="showCategory('maggi')">Maggi</li>
+      <li onclick="showCategory('burger')">Burger</li>
+      <li onclick="showCategory('rolls')">Rolls</li>
+      <li onclick="showCategory('chai')">Chai</li>
+      <li onclick="showCategory('shakes')">Shakes</li>
+    </ul>
+  </nav>
+
+  <section id="menuContainer"></section>
+
+  <footer>
+    <p>© 2025 Chai Ki Mehfil</p>
+  </footer>
+
+  <script>
+    
+
+    const menuData = {
+         BestSeller: [
+        { name: "Veg Loaded - Medium", price: 80, image: "vegb.jpeg" },
+        { name: "Veg Loaded - Large", price: 100, image: "vegm.jpeg" },
+        { name: "Chicken Loaded - Medium", price: 110, image: "chicm.jpeg" },
+        { name: "Chicken Loaded - Large", price: 150, image: "chicb.jpeg" },
+        
+      ],
+      quickBites: [
+        { name: "Salted Fries", price: 60, image: "fries.jpeg" },
+        { name: "Peri Peri Fries", price: 70, image: "PeriPeriFries.jpeg" },
+        { name: "Veg Chilly Garlic Shots", price: 70, image: "garlic.jpeg" },
+        { name: "Allo Tikki", price: 100, image: "Allo.jpeg" },
+        { name: "Chicken Nuggets", price: 70, image: "Nuggs.jpeg" },
+        { name: "Chicken Fingers", price: 80, image: "fingers.jpeg" },
+        { name: "Chicken Cheese Balls", price: 90, image: "balls.jpeg" },
+        { name: "Chicken Strips", price: 100, image: "Strips.jpeg" },
+        { name: "Chicken Wings", price: 120, image: "Wings.jpeg" },
+        
+      ],
+      sandwich: [
+    { name: "Veg Delight", price: 60, image: "vegdel.jpeg" },
+    { name: "Corn Magic", price: 70, image: "corn.jpeg" },
+    { name: "Cucumber", price: 70, image: "cocum.jpeg" },
+    { name: "Paneer Delight", price: 100, image: "pansan.jpeg" },
+    { name: "Egg Special", price: 80, image: "eggsan.jpeg" },
+    { name: "Chicken Delight", price: 90, image: "chicsan.jpeg" },
+    { name: "Hot BBQ", price: 100, image: "bbsan.jpeg" },
+  ],
+  maggi: [
+    { name: "Veg Maggi", price: 60, image: "mgv.jpeg" },
+    { name: "Masala Mastt", price: 70, image: "mamag.jpeg" },
+    { name: "Egg Fried Maggi", price: 80, image: "egmag.jpeg" },
+    { name: "Chicken Fried", price: 90, image: "chicmag.jpeg" },
+    { name: "Cheese Chicken", price: 100, image: "chimagch.jpeg" },
+  ],
+  burger: [
+    { name: "Veg Patty", price: 70, image: "chicu.jpeg" },
+    { name: "Paneer Classic", price: 100, image: "panbu.jpeg" },
+    { name: "Classic Chicken", price: 70, image: "vegbu.jpeg" },
+    { name: "Crispy Chicken", price: 90, image: "chebu.jpeg" },
+    { name: "Cheesy Chicken", price: 90, image: "cribu.jpeg" },
+    { name: "Grilled Chicken Burger", price: 120, image: "grilbu.jpeg" },
+    { name: "Crack & Crunch", price: 150, image: "crcbu.jpeg" },
+  ],
+  rolls: [
+    { name: "Veg Classic", price: 60, image: "vegrol.jpeg" },
+    { name: "Chicken Classic", price: 70, image: "chiroll.jpeg" },
+    { name: "Peri Peri", price: 80, image: "periperiroll.jpeg" },
+    { name: "Shezwan", price: 90, image: "sherol.jpeg" },
+    { name: "Crispy Chicken", price: 90, image: "chiroll.jpeg" },
+    { name: "Chicken Tandoori", price: 100, image: "tanrol.jpeg" },
+    { name: "Loaded Stuffed Roll", price: 110, image: "rolbig.jpeg" },
+  ]
+ 
+    };
+
+    function showCategory(category) {
+      const container = document.getElementById("menuContainer");
+      container.innerHTML = ""; // Clear previous
+      const items = menuData[category] || [];
+      items.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "menu-item";
+        div.style.backgroundImage = `url('${item.image}')`;
+        div.innerHTML = `
+          <div class="menu-overlay">
+            <strong>${item.name}</strong> - ₹${item.price}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Load default
+    window.onload = () => showCategory('BestSeller');
+  </script>
+</body>
+</html>
